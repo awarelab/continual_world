@@ -1,0 +1,17 @@
+tensorflow==2.3.0
+mujoco-py<2.1,>=2.0
+gym[all]==0.15.4
+git+https://github.com/zajaczajac/metaworld.git@master#egg=metaworld
+psutil
+cloudpickle==1.2.1
+ipython
+joblib
+matplotlib
+numpy
+pandas
+pytest
+scipy
+seaborn==0.8.1
+tqdm
+lockfile
+msgpack<2.0.0,>=0.6.0
