@@ -1,0 +1,22 @@
+{
+    "activation":	"lrelu",
+    "alpha":	"auto",
+    "batch_size":	128,
+    "gamma":	0.99,
+    "hidden_sizes":	[
+        256,
+        256,
+        256,
+        256
+    ],
+    "logger_output":	[
+        "tsv"
+    ],
+    "lr":	0.001,
+    "replay_size":	1000000,
+    "seed":	0,
+    "steps":	1000,
+    "target_output_std":	0.089,
+    "task":	"reach-v1",
+    "use_layer_norm":	true
+}

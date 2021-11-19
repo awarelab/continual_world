@@ -1,0 +1,43 @@
+{
+    "activation":	"lrelu",
+    "agent_policy_exploration":	false,
+    "alpha":	"auto",
+    "batch_size":	128,
+    "buffer_type":	"fifo",
+    "cl_method":	"ewc",
+    "cl_reg_coef":	0.0,
+    "clipnorm":	null,
+    "critic_reg_coef":	1.0,
+    "episodic_batch_size":	0,
+    "episodic_mem_per_task":	0,
+    "gamma":	0.99,
+    "hidden_sizes":	[
+        256,
+        256,
+        256,
+        256
+    ],
+    "hide_task_id":	true,
+    "logger_output":	[
+        "tsv"
+    ],
+    "lr":	0.001,
+    "multihead_archs":	true,
+    "packnet_retrain_steps":	0,
+    "regularize_critic":	false,
+    "replay_size":	1000000,
+    "reset_buffer_on_task_change":	true,
+    "reset_critic_on_task_change":	false,
+    "reset_optimizer_on_task_change":	true,
+    "seed":	1,
+    "steps_per_task":	1000,
+    "target_output_std":	0.089,
+    "task_list":	[
+        "0",
+        "1"
+    ],
+    "tasks":	null,
+    "use_layer_norm":	true,
+    "vcl_first_task_kl":	true,
+    "vcl_variational_ln":	false
+}
