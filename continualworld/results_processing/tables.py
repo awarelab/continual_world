@@ -328,11 +328,21 @@ def calculate_metrics(data, mtl_data, baseline_data, group_by=["cl_method"], met
     mtl_data_at_the_end = calculate_data_at_the_end(
         mtl_data, index_columns=group_by + ["experiment_id"]
     )
-    #     mtl_active_envs_columns = [test_columns_by_index[int(env)] for env in list(range(10))]
     mtl_active_envs_columns = get_individual_task_success_columns(mtl_data)
     mtl_ap = compute_mean_and_ci(mtl_data_at_the_end, "performance", mtl_active_envs_columns)
 
     result = pd.concat([result, mtl_ap])
+
+    # Compute performance metric for MTL @ 10M steps (reported in the paper)
+    if max(mtl_data.x) > 10_000_000:
+        mtl_10m = mtl_data[mtl_data["x"] <= 10_000_000].copy()
+        mtl_10m["cl_method"] = mtl_10m["cl_method"] + "@10M"
+        mtl_10m_at_the_end = calculate_data_at_the_end(
+            mtl_10m, index_columns=group_by + ["experiment_id"]
+        )
+        mtl_10m_ap = compute_mean_and_ci(mtl_10m_at_the_end, "performance", mtl_active_envs_columns)
+
+        result = pd.concat([result, mtl_10m_ap])
 
     methods_order = [m for m in methods_order if m in result.index]
     result = pd.concat([result.loc[methods_order], result.loc[~result.index.isin(methods_order)]])

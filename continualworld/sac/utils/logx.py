@@ -83,6 +83,7 @@ class Logger:
         else:
             os.makedirs(self.output_dir)
 
+        self.output_file = None
         if "tsv" in self.logger_output:
             self.output_file = open(osp.join(self.output_dir, output_fname), "w")
             atexit.register(self.output_file.close)
@@ -304,6 +305,6 @@ class EpochLogger(Logger):
         """
         v = self.epoch_dict.get(key)
         if not v:
-            return [None, None, None, None]
+            return [np.nan, np.nan, np.nan, np.nan]
         vals = np.concatenate(v) if isinstance(v[0], np.ndarray) and len(v[0].shape) > 0 else v
         return [np.mean(vals), np.std(vals), np.min(vals), np.max(vals)]

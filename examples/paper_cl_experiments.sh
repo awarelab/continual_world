@@ -78,26 +78,26 @@ python3 run_cl.py --tasks=CW20 --seed=16 --cl_method=mas --cl_reg_coef=10000.0
 python3 run_cl.py --tasks=CW20 --seed=17 --cl_method=mas --cl_reg_coef=10000.0
 python3 run_cl.py --tasks=CW20 --seed=18 --cl_method=mas --cl_reg_coef=10000.0
 python3 run_cl.py --tasks=CW20 --seed=19 --cl_method=mas --cl_reg_coef=10000.0
-python3 run_cl.py --tasks=CW20 --seed=0 --cl_method=vcl --cl_reg_coef=1.0 --vcl_first_task_kl=False --vcl_variational_ln=False
-python3 run_cl.py --tasks=CW20 --seed=1 --cl_method=vcl --cl_reg_coef=1.0 --vcl_first_task_kl=False --vcl_variational_ln=False
-python3 run_cl.py --tasks=CW20 --seed=2 --cl_method=vcl --cl_reg_coef=1.0 --vcl_first_task_kl=False --vcl_variational_ln=False
-python3 run_cl.py --tasks=CW20 --seed=3 --cl_method=vcl --cl_reg_coef=1.0 --vcl_first_task_kl=False --vcl_variational_ln=False
-python3 run_cl.py --tasks=CW20 --seed=4 --cl_method=vcl --cl_reg_coef=1.0 --vcl_first_task_kl=False --vcl_variational_ln=False
-python3 run_cl.py --tasks=CW20 --seed=5 --cl_method=vcl --cl_reg_coef=1.0 --vcl_first_task_kl=False --vcl_variational_ln=False
-python3 run_cl.py --tasks=CW20 --seed=6 --cl_method=vcl --cl_reg_coef=1.0 --vcl_first_task_kl=False --vcl_variational_ln=False
-python3 run_cl.py --tasks=CW20 --seed=7 --cl_method=vcl --cl_reg_coef=1.0 --vcl_first_task_kl=False --vcl_variational_ln=False
-python3 run_cl.py --tasks=CW20 --seed=8 --cl_method=vcl --cl_reg_coef=1.0 --vcl_first_task_kl=False --vcl_variational_ln=False
-python3 run_cl.py --tasks=CW20 --seed=9 --cl_method=vcl --cl_reg_coef=1.0 --vcl_first_task_kl=False --vcl_variational_ln=False
-python3 run_cl.py --tasks=CW20 --seed=10 --cl_method=vcl --cl_reg_coef=1.0 --vcl_first_task_kl=False --vcl_variational_ln=False
-python3 run_cl.py --tasks=CW20 --seed=11 --cl_method=vcl --cl_reg_coef=1.0 --vcl_first_task_kl=False --vcl_variational_ln=False
-python3 run_cl.py --tasks=CW20 --seed=12 --cl_method=vcl --cl_reg_coef=1.0 --vcl_first_task_kl=False --vcl_variational_ln=False
-python3 run_cl.py --tasks=CW20 --seed=13 --cl_method=vcl --cl_reg_coef=1.0 --vcl_first_task_kl=False --vcl_variational_ln=False
-python3 run_cl.py --tasks=CW20 --seed=14 --cl_method=vcl --cl_reg_coef=1.0 --vcl_first_task_kl=False --vcl_variational_ln=False
-python3 run_cl.py --tasks=CW20 --seed=15 --cl_method=vcl --cl_reg_coef=1.0 --vcl_first_task_kl=False --vcl_variational_ln=False
-python3 run_cl.py --tasks=CW20 --seed=16 --cl_method=vcl --cl_reg_coef=1.0 --vcl_first_task_kl=False --vcl_variational_ln=False
-python3 run_cl.py --tasks=CW20 --seed=17 --cl_method=vcl --cl_reg_coef=1.0 --vcl_first_task_kl=False --vcl_variational_ln=False
-python3 run_cl.py --tasks=CW20 --seed=18 --cl_method=vcl --cl_reg_coef=1.0 --vcl_first_task_kl=False --vcl_variational_ln=False
-python3 run_cl.py --tasks=CW20 --seed=19 --cl_method=vcl --cl_reg_coef=1.0 --vcl_first_task_kl=False --vcl_variational_ln=False
+python3 run_cl.py --tasks=CW20 --seed=0 --cl_method=vcl --cl_reg_coef=1.0 --vcl_first_task_kl=False
+python3 run_cl.py --tasks=CW20 --seed=1 --cl_method=vcl --cl_reg_coef=1.0 --vcl_first_task_kl=False
+python3 run_cl.py --tasks=CW20 --seed=2 --cl_method=vcl --cl_reg_coef=1.0 --vcl_first_task_kl=False
+python3 run_cl.py --tasks=CW20 --seed=3 --cl_method=vcl --cl_reg_coef=1.0 --vcl_first_task_kl=False
+python3 run_cl.py --tasks=CW20 --seed=4 --cl_method=vcl --cl_reg_coef=1.0 --vcl_first_task_kl=False
+python3 run_cl.py --tasks=CW20 --seed=5 --cl_method=vcl --cl_reg_coef=1.0 --vcl_first_task_kl=False
+python3 run_cl.py --tasks=CW20 --seed=6 --cl_method=vcl --cl_reg_coef=1.0 --vcl_first_task_kl=False
+python3 run_cl.py --tasks=CW20 --seed=7 --cl_method=vcl --cl_reg_coef=1.0 --vcl_first_task_kl=False
+python3 run_cl.py --tasks=CW20 --seed=8 --cl_method=vcl --cl_reg_coef=1.0 --vcl_first_task_kl=False
+python3 run_cl.py --tasks=CW20 --seed=9 --cl_method=vcl --cl_reg_coef=1.0 --vcl_first_task_kl=False
+python3 run_cl.py --tasks=CW20 --seed=10 --cl_method=vcl --cl_reg_coef=1.0 --vcl_first_task_kl=False
+python3 run_cl.py --tasks=CW20 --seed=11 --cl_method=vcl --cl_reg_coef=1.0 --vcl_first_task_kl=False
+python3 run_cl.py --tasks=CW20 --seed=12 --cl_method=vcl --cl_reg_coef=1.0 --vcl_first_task_kl=False
+python3 run_cl.py --tasks=CW20 --seed=13 --cl_method=vcl --cl_reg_coef=1.0 --vcl_first_task_kl=False
+python3 run_cl.py --tasks=CW20 --seed=14 --cl_method=vcl --cl_reg_coef=1.0 --vcl_first_task_kl=False
+python3 run_cl.py --tasks=CW20 --seed=15 --cl_method=vcl --cl_reg_coef=1.0 --vcl_first_task_kl=False
+python3 run_cl.py --tasks=CW20 --seed=16 --cl_method=vcl --cl_reg_coef=1.0 --vcl_first_task_kl=False
+python3 run_cl.py --tasks=CW20 --seed=17 --cl_method=vcl --cl_reg_coef=1.0 --vcl_first_task_kl=False
+python3 run_cl.py --tasks=CW20 --seed=18 --cl_method=vcl --cl_reg_coef=1.0 --vcl_first_task_kl=False
+python3 run_cl.py --tasks=CW20 --seed=19 --cl_method=vcl --cl_reg_coef=1.0 --vcl_first_task_kl=False
 python3 run_cl.py --tasks=CW20 --seed=0 --cl_method=packnet --packnet_retrain_steps=100000 --clipnorm=2e-05
 python3 run_cl.py --tasks=CW20 --seed=1 --cl_method=packnet --packnet_retrain_steps=100000 --clipnorm=2e-05
 python3 run_cl.py --tasks=CW20 --seed=2 --cl_method=packnet --packnet_retrain_steps=100000 --clipnorm=2e-05

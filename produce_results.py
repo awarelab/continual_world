@@ -8,9 +8,9 @@ from continualworld.utils.utils import get_readable_timestamp, str2bool
 
 
 def main(args: argparse.Namespace) -> None:
-    cl_data = get_data_for_runs(args.cl_logs)
-    mtl_data = get_data_for_runs(args.mtl_logs, mtl=True)
-    baseline_data = get_data_for_runs(args.baseline_logs)
+    cl_data = get_data_for_runs(args.cl_logs, kind="cl")
+    mtl_data = get_data_for_runs(args.mtl_logs, kind="mtl")
+    baseline_data = get_data_for_runs(args.baseline_logs, kind="single")
 
     timestamp = get_readable_timestamp()
     output_dir = os.path.join(args.output_path, f"report_{timestamp}")
@@ -43,7 +43,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--cl_logs", type=str)
     parser.add_argument("--mtl_logs", type=str)
     parser.add_argument("--baseline_logs", type=str)
-    parser.add_argument("--use_ci", type=str2bool, default=True)
+    parser.add_argument(
+        "--use_ci",
+        type=str2bool,
+        default=False,
+        help="When True, confidence intervals are shown for every plot. Note that plots may be significantly "
+             "slower to generate."
+    )
     parser.add_argument("--output_path", type=str, default="results")
     return parser.parse_args()
 

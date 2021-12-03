@@ -63,7 +63,7 @@ def cl_parse_args(args=None):
         "--buffer_type",
         type=str,
         default="fifo",
-        choices=list(BufferType),
+        choices=[b.value for b in BufferType],
         help="Strategy of inserting examples into the buffer",
     )
     parser.add_argument(
