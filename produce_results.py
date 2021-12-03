@@ -43,7 +43,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--cl_logs", type=str)
     parser.add_argument("--mtl_logs", type=str)
     parser.add_argument("--baseline_logs", type=str)
-    parser.add_argument("--use_ci", type=str2bool, default=True)
+    parser.add_argument(
+        "--use_ci",
+        type=str2bool,
+        default=False,
+        help="When True, confidence intervals are shown for every plot. Note that plots may be significantly "
+             "slower to generate."
+    )
     parser.add_argument("--output_path", type=str, default="results")
     return parser.parse_args()
 
