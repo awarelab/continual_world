@@ -1,6 +1,9 @@
 import json
 import os
+import warnings
+from collections import defaultdict
 from glob import glob
+from typing import List
 
 import pandas as pd
 
@@ -45,12 +48,33 @@ def get_data_for_single_run(path, with_config_info=True):
     return data
 
 
-def get_data_for_runs(path, with_config_info=True, mtl=False):
+def get_task_balanced_baseline_data(runs_data: List[pd.DataFrame]) -> List[pd.DataFrame]:
+    # In our code for bootstrapping, we have a technical assumption
+    # that we need the same number of runs for every baseline task.
+
+    task_to_runs = defaultdict(list)
+    for d in runs_data:
+        task = d.task[0]
+        task_to_runs[task].append(d)
+
+    runs_per_task = min([len(l) for l in task_to_runs.values()])
+    res = []
+    for task, runs in task_to_runs.items():
+        if len(runs) > runs_per_task:
+            warnings.warn(f"Number of runs for baseline task {task} cut from {len(runs)} to {runs_per_task}!")
+        res.extend(runs[:runs_per_task])
+
+    return res
+
+
+def get_data_for_runs(path, kind, with_config_info=True):
     run_paths = [p for p in glob(os.path.join(path, "*")) if os.path.isdir(p)]
     data = [get_data_for_single_run(p, with_config_info) for p in run_paths]
+    if kind == "single":
+        data = get_task_balanced_baseline_data(data)
     data = pd.concat(data)
 
-    if mtl:
+    if kind == "mtl":
         data["cl_method"] = ""
         data.loc[data["use_popart"] == False, "cl_method"] = "mtl"
         data.loc[data["use_popart"] == True, "cl_method"] = "mtl_popart"
