@@ -179,7 +179,6 @@ class MultiTaskEnv(gym.Env):
     def __init__(
         self, envs: List[gym.Env], steps_per_env: int, cycle_mode: str = "episode"
     ) -> None:
-        # TODO: Implement the step cycle properly
         assert cycle_mode == "episode"
         for i in range(len(envs)):
             assert envs[0].action_space == envs[i].action_space
@@ -225,7 +224,6 @@ class MultiTaskEnv(gym.Env):
 
     def reset(self) -> np.ndarray:
         self._check_steps_bound()
-        # TODO: step may be tricky to handle here
         if self.cycle_mode == "episode":
             self._cur_seq_idx = (self._cur_seq_idx + 1) % self.num_envs
         obs = self.envs[self._cur_seq_idx].reset()

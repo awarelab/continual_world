@@ -18,12 +18,6 @@ the [website](https://sites.google.com/view/continualworld/home).
 You can either install directly in Python environment
 (like virtualenv or conda), or build containers -- Docker or Singularity.
 
-<!---
-TODO: make sure all this works, before we release
-
-TODO: make singularity & docker contain code inside
--->
-
 ## Standard installation (directly in environment)
 
 First, you'll need [MuJoCo](http://www.mujoco.org/) simulator. Please follow
@@ -119,13 +113,18 @@ Alternatively, check out `nb_produce_results.ipynb` notebook to see plots and ta
 
 ## Download our saved logs and produce results
 
-You can download logs from main experiments from TODO. Then run
+You can download logs of experiments to reproduce paper's results from
+[here](https://filedn.eu/lyLvvXKQye5QpXswYheMs8p/cw_logs.zip). Then unzip the file and run
 
-`TODO command`
+`python produce_results.py --cl_logs saved_logs/cl --mtl_logs saved_logs/mt --baseline_logs saved_logs/single`
 
 to produce tables and plots.
 
-TODO: Add example tables/plots here.
+As a result, a csv file with results will be produced, as well as the plots, like this one (and more!):
+
+![average performance](./examples/results/report_2021_12_15__20_06_56/average_performance.png)
+
+Full output can be found [here](./examples/results/report_2021_12_15__20_06_56/).
 
 # Acknowledgements
 
