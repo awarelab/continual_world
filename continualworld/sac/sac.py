@@ -148,7 +148,6 @@ class SAC:
         # This implementation assumes all dimensions share the same bound!
         assert np.all(env.action_space.high == env.action_space.high[0])
 
-        # TODO: can we push building networks outside of the SAC function?
         # Share information about action space with policy architecture
         actor_kwargs["action_space"] = env.action_space
         actor_kwargs["input_dim"] = self.obs_dim
@@ -356,7 +355,6 @@ class SAC:
                 agem_violation=0,
             )
 
-            # TODO: take another look, is it correct?
             pi_loss += auxiliary_loss
             value_loss += auxiliary_loss
 
@@ -479,7 +477,6 @@ class SAC:
         self.logger.log_tabular("train/loss_reg", average_only=True)
         self.logger.log_tabular("train/agem_violation", average_only=True)
 
-        # TODO: We assume here that SuccessCounter is outermost wrapper.
         avg_success = np.mean(self.env.pop_successes())
         self.logger.log_tabular("train/success", avg_success)
         if "seq_idx" in info:
