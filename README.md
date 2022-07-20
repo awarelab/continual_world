@@ -22,8 +22,9 @@ You can either install directly in Python environment
 
 First, you'll need [MuJoCo](http://www.mujoco.org/) simulator. Please follow
 the [instructions](https://github.com/openai/mujoco-py#install-mujoco)
-from `mujoco_py` package. As MuJoCo has been made freely available, you can obtain a free
-license [here](https://www.roboti.us/license.html).
+from `mujoco_py` package. <ins>As MuJoCo has been made freely available, you can obtain a free
+license [here](https://www.roboti.us/license.html)</ins>. No need for a license from mujoco210
+and above.
 
 Next, go to the main directory of this repo and run
 
