@@ -114,7 +114,7 @@ Alternatively, check out `nb_produce_results.ipynb` notebook to see plots and ta
 ## Download our saved logs and produce results
 
 You can download logs of experiments to reproduce paper's results from
-[here](https://filedn.eu/lyLvvXKQye5QpXswYheMs8p/cw_logs.zip). Then unzip the file and run
+[here](https://e.pcloud.link/publink/show?code=XZXgkuZfJQeQRtMMSpHiSCmWIgV8VhnkkKX). Then unzip the file and run
 
 `python produce_results.py --cl_logs saved_logs/cl --mtl_logs saved_logs/mt --baseline_logs saved_logs/single`
 
