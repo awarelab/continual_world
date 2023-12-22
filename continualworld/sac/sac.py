@@ -4,7 +4,7 @@ import random
 import time
 from typing import Callable, Dict, List, Optional, Tuple, Union
 
-import gym
+import gymnasium as gym
 import numpy as np
 import tensorflow as tf
 
@@ -180,8 +180,8 @@ class SAC:
             + self.critic1.common_variables
             + self.critic2.common_variables
         )
-
-        self.optimizer = tf.keras.optimizers.Adam(learning_rate=lr)
+        self.optimizer = tf.keras.optimizers.legacy.Adam(learning_rate=lr)
+        # self.optimizer = tf.keras.optimizers.Adam(learning_rate=lr)
 
         # For reference on automatic alpha tuning, see
         # "Automating Entropy Adjustment for Maximum Entropy" section
@@ -232,7 +232,7 @@ class SAC:
     def get_log_alpha(self, obs: tf.Tensor) -> tf.Tensor:
         return tf.squeeze(tf.linalg.matmul(obs[:, -self.num_tasks :], self.all_log_alpha))
 
-    @tf.function
+    # @tf.function
     def get_action(self, o: tf.Tensor, deterministic: tf.Tensor = tf.constant(False)) -> tf.Tensor:
         mu, log_std, pi, logp_pi = self.actor(tf.expand_dims(o, 0))
         if deterministic:
@@ -246,7 +246,10 @@ class SAC:
         return self.get_action(o, deterministic)
 
     def get_learn_on_batch(self, current_task_idx: int) -> Callable:
-        @tf.function
+        # TODO : decorator causes error:
+        # : CommandLine Error: Option 'help-list' registered more than once!
+        # LLVM ERROR: inconsistency in registered CommandLine options
+        # @tf.function  
         def learn_on_batch(
             seq_idx: tf.Tensor,
             batch: Dict[str, tf.Tensor],
@@ -407,9 +410,12 @@ class SAC:
             self.on_test_start(seq_idx)
 
             for j in range(num_episodes):
-                obs, done, episode_return, episode_len = test_env.reset(), False, 0, 0
+                obs, info = test_env.reset()
+                done = False
+                episode_return = 0
+                episode_len = 0
                 while not (done or (episode_len == self.max_episode_len)):
-                    obs, reward, done, _ = test_env.step(
+                    obs, reward, terminated, truncated, info = test_env.step(
                         self.get_action_test(tf.convert_to_tensor(obs), tf.constant(deterministic))
                     )
                     episode_return += reward
@@ -532,16 +538,19 @@ class SAC:
     def run(self):
         """A method to run the SAC training, after the object has been created."""
         self.start_time = time.time()
-        obs, episode_return, episode_len = self.env.reset(), 0, 0
+        obs, info = self.env.reset()
+        episode_return = 0
+        episode_len = 0
 
         # Main loop: collect experience in env and update/log each epoch
         current_task_timestep = 0
         current_task_idx = -1
-        self.learn_on_batch = self.get_learn_on_batch(current_task_idx)
+        # self.learn_on_batch = self.get_learn_on_batch(current_task_idx)
 
         for global_timestep in range(self.steps):
             # On task change
             if current_task_idx != getattr(self.env, "cur_seq_idx", -1):
+                print("if statement 1")
                 current_task_timestep = 0
                 current_task_idx = getattr(self.env, "cur_seq_idx")
                 self._handle_task_change(current_task_idx)
@@ -552,20 +561,22 @@ class SAC:
             if current_task_timestep > self.start_steps or (
                 self.agent_policy_exploration and current_task_idx > 0
             ):
+                print("if not exploring")
                 action = self.get_action(tf.convert_to_tensor(obs))
             else:
                 action = self.env.action_space.sample()
 
             # Step the env
-            next_obs, reward, done, info = self.env.step(action)
+            next_obs, reward, terminated, truncated, info = self.env.step(action)
             episode_return += reward
             episode_len += 1
 
             # Ignore the "done" signal if it comes from hitting the time
             # horizon (that is, when it's an artificial terminal signal
             # that isn't based on the agent's state)
+            done = np.logical_or(terminated,truncated)
             done_to_store = done
-            if episode_len == self.max_episode_len or info.get("TimeLimit.truncated"):
+            if episode_len == self.max_episode_len or truncated:  # updated for gymnasium
                 done_to_store = False
 
             # Store experience to replay buffer
@@ -579,20 +590,20 @@ class SAC:
             if done or (episode_len == self.max_episode_len):
                 self.logger.store({"train/return": episode_return, "train/ep_length": episode_len})
                 episode_return, episode_len = 0, 0
-                if global_timestep < self.steps - 1:
-                    obs = self.env.reset()
+                if global_timestep < self.steps - 1:  # This may not work with mujoco anymore
+                    obs, info = self.env.reset()
 
             # Update handling
             if (
                 current_task_timestep >= self.update_after
                 and current_task_timestep % self.update_every == 0
             ):
-
                 for j in range(self.update_every):
                     batch = self.replay_buffer.sample_batch(self.batch_size)
 
                     episodic_batch = self.get_episodic_batch(current_task_idx)
 
+                    ### TODO LLVM ERROR COMES FROM HERE
                     results = self.learn_on_batch(
                         tf.convert_to_tensor(current_task_idx), batch, episodic_batch
                     )

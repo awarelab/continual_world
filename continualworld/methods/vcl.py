@@ -1,6 +1,6 @@
 from typing import Callable, Iterable, List, Tuple
 
-import gym
+import gymnasium as gym
 import tensorflow as tf
 import tensorflow.keras as tfk
 from tensorflow.keras import Input, Model

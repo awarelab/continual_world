@@ -1,10 +1,10 @@
 from copy import deepcopy
 from typing import Any, Dict, List, Tuple, Union
 
-import gym
+import gymnasium as gym
 import metaworld
 import numpy as np
-from gym.wrappers import TimeLimit
+from gymnasium.wrappers import TimeLimit
 
 from continualworld.utils.wrappers import OneHotAdder, RandomizationWrapper, SuccessCounter
 
@@ -126,7 +126,7 @@ class ContinualLearningEnv(gym.Env):
 
     def step(self, action: Any) -> Tuple[np.ndarray, float, bool, Dict]:
         self._check_steps_bound()
-        obs, reward, done, info = self.envs[self.cur_seq_idx].step(action)
+        obs, reward, terminated, truncated, info = self.envs[self.cur_seq_idx].step(action)
         info["seq_idx"] = self.cur_seq_idx
 
         self.cur_step += 1
@@ -138,7 +138,7 @@ class ContinualLearningEnv(gym.Env):
 
             self.cur_seq_idx += 1
 
-        return obs, reward, done, info
+        return obs, reward, terminated, truncated, info
 
     def reset(self) -> np.ndarray:
         self._check_steps_bound()
@@ -214,20 +214,20 @@ class MultiTaskEnv(gym.Env):
 
     def step(self, action: Any) -> Tuple[np.ndarray, float, bool, Dict]:
         self._check_steps_bound()
-        obs, reward, done, info = self.envs[self._cur_seq_idx].step(action)
+        obs, reward, terminated, truncated, info = self.envs[self._cur_seq_idx].step(action)
         info["mt_seq_idx"] = self._cur_seq_idx
         if self.cycle_mode == "step":
             self._cur_seq_idx = (self._cur_seq_idx + 1) % self.num_envs
         self.cur_step += 1
 
-        return obs, reward, done, info
+        return obs, reward, terminated, truncated, info
 
     def reset(self) -> np.ndarray:
         self._check_steps_bound()
         if self.cycle_mode == "episode":
             self._cur_seq_idx = (self._cur_seq_idx + 1) % self.num_envs
-        obs = self.envs[self._cur_seq_idx].reset()
-        return obs
+        obs, info = self.envs[self._cur_seq_idx].reset()
+        return obs, info
 
 
 def get_mt_env(

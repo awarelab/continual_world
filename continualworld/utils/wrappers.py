@@ -1,10 +1,10 @@
 import random
 from typing import Any, Dict, List, Tuple
 
-import gym
+import gymnasium as gym
 import metaworld
 import numpy as np
-from gym.spaces import Box
+from gymnasium.spaces import Box
 
 
 class SuccessCounter(gym.Wrapper):
@@ -16,12 +16,13 @@ class SuccessCounter(gym.Wrapper):
         self.current_success = False
 
     def step(self, action: Any) -> Tuple[np.ndarray, float, bool, Dict]:
-        obs, reward, done, info = self.env.step(action)
+        obs, reward, terminated, truncated, info = self.env.step(action)
+        done = np.logical_or(terminated,truncated)
         if info.get("success", False):
             self.current_success = True
         if done:
             self.successes.append(self.current_success)
-        return obs, reward, done, info
+        return obs, reward, terminated, truncated, info
 
     def pop_successes(self) -> List[bool]:
         res = self.successes
@@ -61,11 +62,12 @@ class OneHotAdder(gym.Wrapper):
         return np.concatenate([obs, self.to_append])
 
     def step(self, action: Any) -> Tuple[np.ndarray, float, bool, Dict]:
-        obs, reward, done, info = self.env.step(action)
-        return self._append_one_hot(obs), reward, done, info
+        obs, reward, terminated, truncated, info = self.env.step(action)
+        return self._append_one_hot(obs), reward, terminated, truncated, info
 
     def reset(self, **kwargs) -> np.ndarray:
-        return self._append_one_hot(self.env.reset(**kwargs))
+        obs, info = self.env.reset(**kwargs)
+        return self._append_one_hot(obs), info
 
 
 class RandomizationWrapper(gym.Wrapper):

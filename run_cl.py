@@ -43,7 +43,8 @@ def main(
     clipnorm: float,
     agent_policy_exploration: bool,
 ):
-    assert (tasks is None) != (task_list is None)
+    # assert (tasks is None) != (task_list is None)
+    tasks='CW10'  # TODO unhardcode this
     if tasks is not None:
         tasks = TASK_SEQS[tasks]
     else:

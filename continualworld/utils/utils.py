@@ -4,7 +4,7 @@ import string
 from datetime import datetime
 from typing import Callable, Dict, Optional, Type, Union
 
-import gym
+import gymnasium as gym
 import numpy as np
 import tensorflow as tf
 
